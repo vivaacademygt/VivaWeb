@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>V.I.V.A. Academy</title>
+<meta name="description" content="">
+<meta name="theme-color" content="#5D4F9C">
+<meta property="og:type" content="website">
+<meta property="og:title" content="V.I.V.A. Academy">
+<meta property="og:description" content="">
+<meta property="og:image" content="logo-viva.png">
+<link rel="icon" href="logo-viva.png">
+<style>
+  :root{
+    /* Paleta institucional tomada del logo */
+    --coral:#FF6C53; --teal:#4BA5B8; --amber:#FDAB18; --purple:#5D4F9C; --slate:#485967;
+    --purple-osc:#463a7a; --ink:#2A3641; --muted:#5d6b77;
+    --bg:#FFFCF7; --card:#FFFFFF; --tint:#F5F1FB; --line:#E8E3F0;
+    --radio:20px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:84px}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{line-height:1.15;letter-spacing:-.01em;color:var(--ink)}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  section{padding:72px 0}
+  .eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:10px}
+  h2{font-size:clamp(1.7rem,4.2vw,2.5rem);margin-bottom:12px}
+  .sub{color:var(--muted);max-width:640px;margin-bottom:36px;font-size:1.05rem}
+  .center{text-align:center}.center .sub{margin-left:auto;margin-right:auto}
+
+  /* Botones */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--purple);color:#fff;padding:14px 26px;border-radius:999px;font-weight:700;font-size:1rem;border:2px solid var(--purple);cursor:pointer;transition:transform .15s,background .2s,box-shadow .2s;font-family:inherit}
+  .btn:hover{background:var(--purple-osc);border-color:var(--purple-osc);transform:translateY(-2px);box-shadow:0 10px 22px rgba(93,79,156,.28)}
+  .btn.sec{background:transparent;color:var(--purple);}
+  .btn.sec:hover{background:var(--purple);color:#fff}
+  .btn.wa{background:#1fa855;border-color:#1fa855}
+  .btn.wa:hover{background:#178a45;border-color:#178a45;box-shadow:0 10px 22px rgba(31,168,85,.3)}
+  .btn svg{width:20px;height:20px;fill:currentColor}
+  .btn.sm{padding:10px 18px;font-size:.92rem}
+
+  /* Cabecera */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,252,247,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  header::after{content:"";display:block;height:4px;background:linear-gradient(90deg,var(--coral) 0 25%,var(--teal) 25% 50%,var(--amber) 50% 75%,var(--purple) 75% 100%)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+  .brand img{height:46px;width:auto}
+  .brand .txt{display:none;font-weight:800;font-size:1.2rem;color:var(--purple)}
+  .menu{display:flex;align-items:center;gap:26px;font-size:.96rem;font-weight:600}
+  .menu a:not(.btn){color:var(--slate);position:relative}
+  .menu a:not(.btn):hover{color:var(--purple)}
+  .burger{display:none;background:none;border:0;cursor:pointer;padding:8px}
+  .burger span{display:block;width:26px;height:3px;background:var(--slate);margin:5px 0;border-radius:3px;transition:.25s}
+  @media(max-width:860px){
+    .burger{display:block}
+    .menu{position:absolute;left:0;right:0;top:76px;background:var(--bg);flex-direction:column;align-items:stretch;gap:0;padding:8px 20px 20px;border-bottom:1px solid var(--line);box-shadow:0 18px 30px rgba(42,54,65,.12);display:none}
+    .menu.open{display:flex}
+    .menu a:not(.btn){padding:14px 4px;border-bottom:1px solid var(--line)}
+    .menu .btn{margin-top:14px}
+    .burger.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+    .burger.open span:nth-child(2){opacity:0}
+    .burger.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+  }
+
+  /* Hero */
+  .hero{position:relative;overflow:hidden;padding:64px 0 80px;background:
+    radial-gradient(520px 320px at 92% 8%,rgba(75,165,184,.22),transparent 70%),
+    radial-gradient(480px 340px at 8% 100%,rgba(253,171,24,.2),transparent 70%),
+    radial-gradient(420px 300px at 70% 100%,rgba(255,108,83,.16),transparent 70%),var(--bg)}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+  .hero h1{font-size:clamp(2.2rem,5.6vw,3.7rem);font-weight:800;margin-bottom:18px}
+  .hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--coral),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lead{font-size:1.15rem;color:var(--muted);max-width:540px;margin-bottom:28px}
+  .acciones{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+  .chips{display:flex;gap:10px;flex-wrap:wrap}
+  .chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:.88rem;font-weight:600;color:var(--slate);display:inline-flex;align-items:center;gap:8px}
+  .chip i{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .hero-logo{background:#fff;border:1px solid var(--line);border-radius:32px;padding:40px 34px;transform:rotate(1.5deg);
+    box-shadow:14px 14px 0 #FEE2A8,28px 28px 0 #CFE7ED,0 44px 70px rgba(93,79,156,.16)}
+  .hero-logo img{width:100%;height:auto}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr}.hero-logo{max-width:420px;margin:0 auto;transform:none}}
+
+  /* Idiomas */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+  .langs{display:flex;flex-wrap:wrap;justify-content:center;gap:20px}
+  .langs .card{flex:1 1 200px;max-width:268px}
+  .lang > *:not(.bg):not(.foto):not(.shade){position:relative;z-index:1}
+  .lang .bg{position:absolute;right:-4px;bottom:0;width:84%;height:78%;color:var(--c);opacity:.17;pointer-events:none;z-index:0;transition:opacity .35s,transform .35s}
+  .lang .bg svg{width:100%;height:100%;display:block}
+  .lang:hover .bg{opacity:.3;transform:translateY(-6px) scale(1.03)}
+  /* Tarjetas con foto de fondo */
+  .lang.has-foto{background:#2a3641;border-color:transparent;display:flex;flex-direction:column;min-height:390px}
+  .lang.has-foto::before{z-index:2;height:7px}
+  .lang .foto{position:absolute;inset:0;z-index:0;background-size:cover;background-repeat:no-repeat;transition:transform .9s ease}
+  .lang .shade{position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(16,20,36,.38) 0%,rgba(16,20,36,.62) 50%,rgba(16,20,36,.9) 100%);transition:opacity .4s}
+  .lang.has-foto:hover .foto{transform:scale(1.07)}
+  .lang.has-foto:hover .shade{opacity:.78}
+  .lang.has-foto h3{color:#fff}
+  .lang.has-foto p{color:rgba(255,255,255,.93)}
+  .lang.has-foto .nivel{align-self:flex-start;background:rgba(255,255,255,.22);color:#fff;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+  .lang.has-foto .link{color:#fff;margin-top:auto;align-self:flex-start;padding-bottom:3px;border-bottom:2px solid var(--c)}
+  /* Tarjeta ancha (curso de especialización) */
+  .langs .card.wide{flex:1 1 100%;max-width:none;min-height:320px;justify-content:center}
+  .lang.wide > *:not(.foto):not(.shade){max-width:560px}
+  .lang.wide .link{margin-top:6px}
+  .lang.wide .badge{width:auto;min-width:54px;padding:0 14px;align-self:flex-start}
+  @media(max-width:560px){.langs .card.wide{max-width:268px}}
+  @media(min-width:861px){
+    .lang .foto{background-size:var(--fsize,cover)}
+    .langs .card.wide{min-height:var(--alto,320px)}
+    .lang.wide .shade{background:linear-gradient(90deg,rgba(16,20,36,.92) 0%,rgba(16,20,36,.78) 42%,rgba(16,20,36,.12) 100%)}
+    .lang.wide{padding:34px 40px}
+  }
+  @media(prefers-reduced-motion:reduce){.lang .foto{transition:none}.lang.has-foto:hover .foto{transform:none}}
+  @media(prefers-reduced-motion:reduce){.lang .bg{transition:none}.lang:hover .bg{transform:none}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radio);padding:26px;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden}
+  .card:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(42,54,65,.1)}
+  .lang::before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:var(--c)}
+  .badge{width:54px;height:54px;border-radius:16px;background:var(--c);color:var(--t,#fff);display:grid;place-items:center;font-weight:800;font-size:1.05rem;letter-spacing:.04em;margin-bottom:16px}
+  .card h3{font-size:1.25rem;margin-bottom:6px}
+  .card p{color:var(--muted);font-size:.96rem;margin-bottom:16px}
+  .nivel{display:inline-block;font-size:.78rem;font-weight:700;color:var(--slate);background:var(--tint);padding:4px 10px;border-radius:999px;margin-bottom:16px}
+  .card .link{font-weight:700;color:var(--purple);display:inline-flex;gap:6px;align-items:center}
+  .card .link:hover{gap:10px}
+
+  /* Por qué VIVA */
+  .porque{background:var(--tint)}
+  .feat{display:flex;gap:16px;align-items:flex-start}
+  .feat .ic{flex:none;width:50px;height:50px;border-radius:14px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:1.5rem}
+  .feat h3{font-size:1.1rem;margin-bottom:4px}
+  .feat p{color:var(--muted);font-size:.96rem}
+
+  /* Niños */
+  .kids{background:linear-gradient(135deg,var(--purple) 0%,#7a62c4 100%);color:#fff;border-radius:32px;padding:48px 40px;display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center;position:relative;overflow:hidden}
+  .kids h2,.kids h3{color:#fff}
+  .kids .eyebrow{color:var(--amber)}
+  .kids p{opacity:.92;max-width:520px;margin-bottom:22px}
+  .kids .btn{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+  .kids .btn:hover{background:#ffbd3f;border-color:#ffbd3f;box-shadow:0 10px 22px rgba(0,0,0,.25)}
+  .kids ul{list-style:none;display:grid;gap:12px}
+  .kids li{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:14px 18px;border-radius:16px;font-weight:600}
+  .kids li small{display:block;font-weight:400;opacity:.85}
+  @media(max-width:860px){.kids{grid-template-columns:1fr;padding:36px 24px}}
+
+  /* Prueba de nivel */
+  .prueba{background:var(--tint)}
+  .quiz{max-width:720px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:28px;padding:34px;box-shadow:0 24px 50px rgba(93,79,156,.1)}
+  @media(max-width:560px){.quiz{padding:24px 18px;border-radius:22px}}
+  .qform{display:grid;gap:20px;background:none;border:0;border-radius:0;padding:0}
+  .qerror{color:#b3261e;font-weight:700;font-size:.92rem}
+  .chips-idioma{display:flex;flex-wrap:wrap;gap:10px}
+  .chips-idioma label{position:relative;margin:0;cursor:pointer;font-size:1rem;color:inherit}
+  .chips-idioma input{position:absolute;opacity:0;width:1px;height:1px;padding:0;border:0}
+  .chips-idioma span{display:inline-flex;align-items:center;gap:9px;padding:11px 20px;border-radius:999px;border:2px solid var(--line);font-weight:700;color:var(--slate);background:#fff;transition:.15s}
+  .chips-idioma span i{width:11px;height:11px;border-radius:50%;background:var(--c)}
+  .chips-idioma label:hover span{border-color:var(--purple)}
+  .chips-idioma input:checked + span{border-color:var(--purple);background:var(--tint);color:var(--purple)}
+  .chips-idioma input:focus-visible + span{outline:3px solid rgba(93,79,156,.35)}
+  .qhead{font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:10px}
+  .qbar{height:10px;border-radius:99px;background:var(--tint);overflow:hidden;margin-bottom:26px}
+  .qbar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--coral),var(--amber),var(--teal),var(--purple));transition:width .35s}
+  .qtexto{font-size:clamp(1.15rem,3.4vw,1.4rem);font-weight:700;line-height:1.35;margin-bottom:20px;color:var(--ink)}
+  .qops{display:grid;gap:10px}
+  .qop{display:flex;align-items:center;gap:14px;width:100%;text-align:left;font:inherit;font-weight:600;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:16px;padding:14px 16px;cursor:pointer;transition:.15s}
+  .qop b{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--tint);color:var(--purple);font-size:.85rem}
+  .qop:hover{border-color:var(--purple)}
+  .qop:focus-visible{outline:3px solid rgba(93,79,156,.35)}
+  .qop[aria-pressed="true"]{border-color:var(--purple);background:var(--tint)}
+  .qop[aria-pressed="true"] b{background:var(--purple);color:#fff}
+  .qnav{display:flex;justify-content:space-between;gap:12px;margin-top:26px}
+  .btn[disabled],.btn[disabled]:hover{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;background:var(--purple);border-color:var(--purple)}
+  .btn.sec[disabled],.btn.sec[disabled]:hover{background:transparent;color:var(--purple)}
+  .res{text-align:center}
+  .res h3{font-size:1.7rem;margin-bottom:8px}
+  .res-badge{width:124px;height:124px;border-radius:50%;margin:10px auto 16px;display:grid;place-items:center;font-size:2.4rem;font-weight:800;background:var(--c,var(--purple));box-shadow:0 14px 30px rgba(42,54,65,.18)}
+  .res-badge.larga{font-size:1.7rem}
+  .res .desc{color:var(--muted);max-width:480px;margin:0 auto 10px}
+  .desglose{display:grid;gap:10px;max-width:420px;margin:18px auto 26px;text-align:left}
+  .desglose > div{display:grid;grid-template-columns:34px 1fr 40px;gap:12px;align-items:center;font-size:.9rem;font-weight:700;color:var(--slate)}
+  .desglose .b{height:10px;border-radius:99px;background:var(--tint);overflow:hidden}
+  .desglose .b i{display:block;height:100%;border-radius:99px;background:var(--c,var(--purple))}
+  .res-acc{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+  /* Pasos */
+  .pasos{counter-reset:p}
+  .paso{text-align:center;padding:10px}
+  .paso::before{counter-increment:p;content:counter(p);display:grid;place-items:center;width:56px;height:56px;border-radius:50%;margin:0 auto 14px;font-weight:800;font-size:1.3rem;color:var(--ink);background:var(--c)}
+  .paso h3{font-size:1.1rem;margin-bottom:6px}.paso p{color:var(--muted);font-size:.96rem}
+
+  /* Testimonios (se ocultan si no hay) */
+  .testi .estrellas{color:var(--amber);letter-spacing:3px;margin-bottom:8px}
+  .testi .quien{margin-top:12px;font-weight:700;font-size:.92rem}
+
+  /* FAQ */
+  .faq{max-width:780px;margin:0 auto}
+  details{background:#fff;border:1px solid var(--line);border-radius:16px;padding:0 22px;margin-bottom:12px}
+  summary{cursor:pointer;list-style:none;font-weight:700;padding:18px 0;display:flex;justify-content:space-between;gap:16px;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-size:1.5rem;color:var(--purple);transition:transform .2s;line-height:1}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{color:var(--muted);padding-bottom:18px}
+
+  /* Contacto */
+  .contacto{background:var(--tint)}
+  .contacto-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+  @media(max-width:860px){.contacto-grid{grid-template-columns:1fr}}
+  form{background:#fff;border:1px solid var(--line);border-radius:var(--radio);padding:28px;display:grid;gap:16px}
+  label{font-size:.85rem;font-weight:700;color:var(--slate);display:block;margin-bottom:6px}
+  input,select{width:100%;font:inherit;padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--ink)}
+  input:focus,select:focus{outline:3px solid rgba(93,79,156,.25);border-color:var(--purple)}
+  .dato{margin-bottom:18px}
+  .dato b{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--purple)}
+  .nota{font-size:.85rem;color:var(--muted)}
+
+  footer{background:var(--ink);color:#d5dce2;padding:44px 0 28px}
+  footer .fl{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  footer .logo-chip{background:#fff;border-radius:16px;padding:10px 16px}
+  footer .logo-chip img{height:48px;width:auto}
+  footer a{color:#fff;font-weight:600}
+  footer .copy{border-top:1px solid rgba(255,255,255,.14);margin-top:26px;padding-top:18px;font-size:.88rem;text-align:center}
+
+  /* WhatsApp flotante */
+  .waf{position:fixed;right:18px;bottom:18px;z-index:60;width:60px;height:60px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 8px 22px rgba(0,0,0,.3);transition:transform .2s}
+  .waf:hover{transform:scale(1.08)}
+  .waf svg{width:32px;height:32px;fill:#fff}
+  .waf::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25d366;animation:pulso 2.4s infinite}
+  @keyframes pulso{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.6);opacity:0}}
+
+  /* Aparición al hacer scroll */
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+  .rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.waf::after{animation:none}html{scroll-behavior:auto}}
+  [hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+<!-- =====================================================
+     CONFIGURACIÓN: SOLO EDITA ESTE BLOQUE PARA CADA CLIENTE
+     ===================================================== -->
+<script>
+const NEGOCIO = {
+  nombre: "V.I.V.A. Academy",
+  nombreCorto: "VIVA Academy",
+  logo: "logo-viva.png",          // archivo del logo en la misma carpeta
+
+  titularInicio: "Aprende idiomas <em>en línea</em>, con ganas y a tu ritmo",
+  descripcionCorta: "Clases de inglés, italiano, alemán y catalán, desde nivel A1, con material interactivo para practicar desde tu celular.",
+  metaDescripcion: "V.I.V.A. Academy: academia de idiomas en línea. Inglés, italiano, alemán y catalán, desde nivel A1, y cursos de especialización para médicos y turismo. Prueba de nivel en línea. Escríbenos por WhatsApp.",
+  chips: [
+    { texto: "100% en línea", color: "#FF6C53" },
+    { texto: "Desde nivel A1", color: "#4BA5B8" },
+    { texto: "Material interactivo", color: "#FDAB18" },
+    { texto: "Atención por WhatsApp", color: "#5D4F9C" }
+  ],
+
+  // WhatsApp: código de país + número, SIN signos ni espacios (Guatemala = 502)
+  whatsapp: "50253745918",
+  telefonoVisible: "+502 5374-5918",
+  mensajeWhatsapp: "Hola, vi la página de V.I.V.A. Academy y quiero información sobre los cursos.",
+
+  idiomasTitulo: "Elige tu idioma",
+  idiomasTexto: "Cuatro idiomas desde cero y cursos de especialización para médicos y turismo.",
+  idiomas: [
+    { sigla: "EN", fondo: "bigben", foto: "fondo-ingles.jpg", fotoPos: "74% 40%", nombre: "Inglés",  niveles: "Desde A1", color: "#FF6C53", textoColor: "#2A3641", texto: "Gramática, vocabulario y conversación para estudiar, trabajar y viajar." },
+    { sigla: "IT", fondo: "coliseo", foto: "fondo-italiano.jpg", fotoPos: "28% 55%", nombre: "Italiano", niveles: "Desde A1", color: "#4BA5B8", textoColor: "#2A3641", texto: "Aprende desde cero con ejercicios guiados y práctica constante." },
+    { sigla: "DE", fondo: "brandeburgo", foto: "fondo-aleman.jpg", fotoPos: "50% 45%", nombre: "Alemán",  niveles: "Desde A1", color: "#FDAB18", textoColor: "#2A3641", texto: "Estructura clara paso a paso, ideal para empezar con buena base." },
+    { sigla: "CA", fondo: "sagrada", foto: "fondo-catalan.jpg", fotoPos: "50% 30%", nombre: "Catalán", niveles: "Desde A1", color: "#5D4F9C", textoColor: "#FFFFFF", texto: "Una lengua cercana al español y al italiano, con mucho por descubrir." },
+    { sigla: "MED", ancho: true, foto: "fondo-medicina.jpg", fotoPos: "50% 28%", nombre: "Especialización para médicos", niveles: "Médicos y estudiantes de medicina", color: "#4BA5B8", textoColor: "#2A3641", texto: "Curso de especialización pensado para médicos y estudiantes de medicina, con enfoque en el ámbito profesional y clínico.", mensaje: "Hola, quiero información del curso de especialización para médicos y estudiantes de medicina." },
+    { sigla: "TOUR", ancho: true, foto: "fondo-turismo.jpg", fotoPos: "0% 20%", fotoSize: "115%", alto: "420px", nombre: "Tourism", niveles: "Curso de especialización", color: "#FDAB18", textoColor: "#2A3641", texto: "Curso de especialización para quienes trabajan o quieren trabajar en turismo: comunicación con viajeros y vocabulario del sector.", mensaje: "Hola, quiero información de la especialización en Tourism." }
+  ],
+
+  porqueTitulo: "Una academia hecha para aprender de verdad",
+  porqueTexto: "Combinamos clases en línea con herramientas propias para que practiques todos los días.",
+  porque: [
+    { icono: "💻", titulo: "Clases en línea", texto: "Estudia desde tu casa, sin traslados, y con acompañamiento de tu profesor." },
+    { icono: "🎮", titulo: "Práctica interactiva", texto: "Ejercicios y apps que se abren en tu celular, hechos para repasar de forma divertida." },
+    { icono: "🪜", titulo: "Niveles claros", texto: "Avanza paso a paso desde A1 con una ruta ordenada y metas que puedes ver." },
+    { icono: "💬", titulo: "Cerca de ti", texto: "Resuelve tus dudas y recibe información directo por WhatsApp." }
+  ],
+
+  ninos: {
+    mostrar: true,
+    titulo: "Curso de vacaciones para niños",
+    texto: "Un curso bilingüe y divertido para niños de 6 a 12 años: inglés e italiano a través de juegos, retos y mucha práctica.",
+    puntos: [
+      { t: "Edades 6 a 12 años", s: "Grupos pensados para su edad" },
+      { t: "Inglés + italiano", s: "Dos idiomas en un solo curso" },
+      { t: "6 semanas (19 de octubre al 27 de noviembre 2026)", s: "Aprender jugando durante las vacaciones" }
+    ],
+    boton: "Pedir información del curso",
+    mensaje: "Hola, quiero información sobre el curso de vacaciones para niños."
+  },
+
+  pasosTitulo: "Empezar es muy fácil",
+  pasos: [
+    { titulo: "Escríbenos", texto: "Cuéntanos qué idioma te interesa por WhatsApp.", color: "#FF6C53" },
+    { titulo: "Conoce tu nivel", texto: "Te orientamos para ubicarte en el nivel correcto.", color: "#4BA5B8" },
+    { titulo: "Empieza a aprender", texto: "Recibe tu plan, tu material y comienza tus clases.", color: "#FDAB18" }
+  ],
+
+  // Prueba de nivel: preguntas por idioma. En cada pregunta, la PRIMERA opción es la correcta (la página las mezcla al mostrarlas).
+  prueba: {
+    activa: true,
+    titulo: "Descubre tu nivel",
+    texto: "Responde unas preguntas en pocos minutos y te decimos en qué nivel estás. Al final puedes enviar tu resultado a V.I.V.A. Academy por WhatsApp.",
+    nota: "Son 15 preguntas por idioma y toma unos 5 minutos. Al terminar podrás enviar tu resultado por WhatsApp.",
+    umbral: 0.6,   // proporción de aciertos para aprobar cada nivel
+    idiomas: [
+      { id: "ingles", nombre: "Inglés", color: "#FF6C53", tc: "#2A3641", preguntas: [
+        { n: "A1", q: "She ___ a teacher.", o: ["is", "are", "am", "be"] },
+        { n: "A1", q: "There ___ two books on the table.", o: ["are", "is", "was", "be"] },
+        { n: "A1", q: "___ you from Mexico?", o: ["Are", "Do", "Is", "Does"] },
+        { n: "A1", q: "My brother ___ twelve years old.", o: ["is", "has", "have", "are"] },
+        { n: "A1", q: "I ___ coffee every morning.", o: ["drink", "drinks", "drinking", "am drink"] },
+        { n: "A2", q: "I ___ to the market every Saturday.", o: ["go", "goes", "going", "went"] },
+        { n: "A2", q: "Yesterday, they ___ a movie together.", o: ["watched", "watch", "watches", "watching"] },
+        { n: "A2", q: "My sister is taller ___ me.", o: ["than", "that", "then", "as"] },
+        { n: "A2", q: "I'm ___ to visit my grandmother tomorrow.", o: ["going", "go", "goes", "went"] },
+        { n: "A2", q: "There isn't ___ milk in the fridge.", o: ["any", "some", "a", "many"] },
+        { n: "B1", q: "I have lived here ___ 2019.", o: ["since", "for", "from", "in"] },
+        { n: "B1", q: "If it rains tomorrow, we ___ the trip.", o: ["will cancel", "cancel", "would cancel", "canceled"] },
+        { n: "B1", q: "She asked me where I ___.", o: ["lived", "live", "am living", "did live"] },
+        { n: "B1", q: "This is the house ___ I was born.", o: ["where", "which", "who", "what"] },
+        { n: "B1", q: "I ___ never ___ to Japan, but I would love to go.", o: ["have / been", "has / been", "did / be", "am / been"] },
+      ] },
+      { id: "italiano", nombre: "Italiano", color: "#4BA5B8", tc: "#2A3641", preguntas: [
+        { n: "A1", q: "Io ___ Marco.", o: ["sono", "sei", "è", "siamo"] },
+        { n: "A1", q: "Lei ___ in Italia.", o: ["abita", "abito", "abiti", "abitano"] },
+        { n: "A1", q: "Noi ___ la pizza.", o: ["mangiamo", "mangio", "mangiate", "mangiano"] },
+        { n: "A1", q: "___ ti chiami?", o: ["Come", "Dove", "Quando", "Quanto"] },
+        { n: "A1", q: "Ho ___ gatto.", o: ["un", "uno", "una", "dei"] },
+        { n: "A2", q: "Ieri ___ al cinema.", o: ["sono andato", "ho andato", "ero andato", "andrò"] },
+        { n: "A2", q: "Mi ___ molto la musica.", o: ["piace", "piaccio", "piacciono", "piacere"] },
+        { n: "A2", q: "Voglio ___ un caffè.", o: ["bere", "bevo", "bevuto", "bevi"] },
+        { n: "A2", q: "Questa è la casa ___ mia sorella.", o: ["di", "da", "in", "su"] },
+        { n: "A2", q: "Quando ero piccolo, ___ sempre al parco.", o: ["andavo", "sono andato", "vado", "andrò"] },
+        { n: "B1", q: "Se avessi tempo, ___ in viaggio.", o: ["andrei", "vado", "andrò", "andavo"] },
+        { n: "B1", q: "Credo che lui ___ ragione.", o: ["abbia", "ha", "avrà", "aveva"] },
+        { n: "B1", q: "Ho comprato dei libri e li ___ già letti.", o: ["ho", "sono", "ha", "hanno"] },
+        { n: "B1", q: "Il libro ___ ti ho parlato è questo.", o: ["di cui", "che", "quale", "chi"] },
+        { n: "B1", q: "Quando sono arrivato, il film ___ già finito.", o: ["era", "è", "sarà", "fu"] },
+      ] },
+      { id: "aleman", nombre: "Alemán", color: "#FDAB18", tc: "#2A3641", preguntas: [
+        { n: "A1", q: "Ich ___ Anna.", o: ["bin", "bist", "ist", "sind"] },
+        { n: "A1", q: "Er ___ in Berlin.", o: ["wohnt", "wohne", "wohnst", "wohnen"] },
+        { n: "A1", q: "Wir ___ Kaffee.", o: ["trinken", "trinkt", "trinke", "trinkst"] },
+        { n: "A1", q: "___ heißt du?", o: ["Wie", "Wo", "Wann", "Wer"] },
+        { n: "A1", q: "Das ist ___ Buch.", o: ["ein", "eine", "einen", "einem"] },
+        { n: "A2", q: "Ich ___ gestern im Kino.", o: ["war", "bin", "habe", "werde"] },
+        { n: "A2", q: "Ich fahre mit ___ Bus.", o: ["dem", "den", "der", "das"] },
+        { n: "A2", q: "Hast du ___ Bruder?", o: ["einen", "ein", "eine", "einem"] },
+        { n: "A2", q: "Ich möchte ein Glas Wasser ___.", o: ["trinken", "trinke", "getrunken", "trinkt"] },
+        { n: "A2", q: "Das Wetter ist schön, ___ gehen wir spazieren.", o: ["deshalb", "weil", "obwohl", "dass"] },
+        { n: "B1", q: "Ich weiß nicht, ___ er heute kommt.", o: ["ob", "dass", "damit", "obwohl"] },
+        { n: "B1", q: "Wenn ich mehr Zeit ___, würde ich reisen.", o: ["hätte", "habe", "hatte", "haben"] },
+        { n: "B1", q: "Das Auto, ___ ich gekauft habe, ist rot.", o: ["das", "der", "dem", "die"] },
+        { n: "B1", q: "Ich interessiere mich ___ Musik.", o: ["für", "an", "auf", "über"] },
+        { n: "B1", q: "Das Buch ist von vielen Menschen gelesen ___.", o: ["worden", "geworden", "wurden", "werden"] },
+      ] },
+      { id: "catalan", nombre: "Catalán", color: "#5D4F9C", tc: "#FFFFFF", preguntas: [
+        { n: "A1", q: "Jo ___ Maria.", o: ["sóc", "ets", "és", "som"] },
+        { n: "A1", q: "Ell ___ a Barcelona.", o: ["viu", "visc", "vius", "viuen"] },
+        { n: "A1", q: "Nosaltres ___ pa.", o: ["mengem", "menjo", "mengeu", "mengen"] },
+        { n: "A1", q: "Com et ___?", o: ["dius", "dic", "diu", "diuen"] },
+        { n: "A1", q: "Tinc ___ gat.", o: ["un", "una", "uns", "unes"] },
+        { n: "A2", q: "Ahir ___ al cinema.", o: ["vaig anar", "vaig anat", "vaig anant", "aniré"] },
+        { n: "A2", q: "M'agrada ___ música.", o: ["la", "el", "les", "un"] },
+        { n: "A2", q: "Vull ___ un cafè.", o: ["prendre", "prenc", "pres", "prens"] },
+        { n: "A2", q: "Els llibres són ___ la taula, no al terra.", o: ["sobre", "sota", "darrere", "dins"] },
+        { n: "A2", q: "Quan era petit, ___ cada estiu al poble.", o: ["anava", "vaig anar", "aniré", "vaig anat"] },
+        { n: "B1", q: "Si tingués temps, ___ de viatge.", o: ["aniria", "vaig", "aniré", "anava"] },
+        { n: "B1", q: "No crec que ___ raó.", o: ["tingui", "té", "tindrà", "tenia"] },
+        { n: "B1", q: "El llibre ___ et vaig parlar és aquest.", o: ["de què", "que", "qui", "on"] },
+        { n: "B1", q: "Quan vaig arribar, la pel·lícula ja ___.", o: ["havia acabat", "ha acabat", "acabarà", "acabi"] },
+        { n: "B1", q: "Aquesta és la ciutat ___ vaig néixer.", o: ["on", "que", "qui", "quan"] },
+      ] },
+    ]
+  },
+
+  // Si la lista está vacía, la sección de testimonios no aparece. Usa solo opiniones reales.
+  testimonios: [],
+
+  faqTitulo: "Preguntas frecuentes",
+  faq: [
+    { p: "¿Las clases son presenciales?", r: "No, todas las clases son en línea, así que puedes aprender desde cualquier lugar." },
+    { p: "¿Necesito saber algo del idioma para empezar?", r: "No. Hay cursos desde cero (A1). Si ya sabes algo, te ayudamos a encontrar tu nivel." },
+    { p: "¿Cómo sé en qué nivel estoy?", r: "Puedes hacer la prueba de nivel que está en esta misma página: eliges el idioma, respondes unas preguntas y te mostramos tu resultado." },
+    { p: "¿Qué niveles ofrecen?", r: "Empezamos desde el nivel A1 en inglés, italiano, alemán y catalán." },
+    { p: "¿Tienen cursos para niños?", r: "Sí, tenemos un curso de vacaciones para niños de 6 a 12 años, con inglés e italiano." },
+    { p: "¿Cómo conozco horarios y precios?", r: "Escríbenos por WhatsApp y te compartimos toda la información al momento." }
+  ],
+
+  contactoTitulo: "Hablemos por WhatsApp",
+  contactoTexto: "Completa el formulario y se abrirá WhatsApp con tu mensaje listo para enviar. Respondemos con gusto.",
+  modalidad: "Clases en línea, desde cualquier lugar",
+  correo: "",
+  facebook: "",
+  instagram: "",
+  tiktok: ""
+};
+</script>
+<!-- ================= FIN DE LA CONFIGURACIÓN ================= -->
+
+<header>
+  <div class="wrap nav">
+    <a href="#inicio" class="brand" aria-label="Ir al inicio">
+      <img id="logoNav" alt="">
+      <span class="txt" id="logoTxt"></span>
+    </a>
+    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="menu" id="menu">
+      <a href="#idiomas">Idiomas</a>
+      <a href="#prueba" id="navPrueba">Prueba de nivel</a>
+      <a href="#porque">Por qué VIVA</a>
+      <a href="#ninos" id="navNinos">Niños</a>
+      <a href="#faq">Preguntas</a>
+      <a href="#contacto">Contacto</a>
+      <a class="btn wa sm" id="btnNav" target="_blank" rel="noopener">WhatsApp</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow" id="heroEyebrow"></span>
+        <h1 id="heroTitulo"></h1>
+        <p class="lead" id="heroTexto"></p>
+        <div class="acciones">
+          <a class="btn wa" id="btnHero" target="_blank" rel="noopener"></a>
+          <a class="btn sec" href="#idiomas">Ver idiomas</a>
+        </div>
+        <div class="chips" id="chips"></div>
+      </div>
+      <div class="hero-logo"><img id="logoHero" alt=""></div>
+    </div>
+  </section>
+
+  <section id="idiomas">
+    <div class="wrap">
+      <div class="center rv">
+        <span class="eyebrow">Nuestros cursos</span>
+        <h2 id="idiomasTitulo"></h2>
+        <p class="sub" id="idiomasTexto"></p>
+      </div>
+      <div class="langs" id="gridIdiomas"></div>
+    </div>
+  </section>
+
+  <section class="porque" id="porque">
+    <div class="wrap">
+      <div class="center rv">
+        <span class="eyebrow">Por qué VIVA</span>
+        <h2 id="porqueTitulo"></h2>
+        <p class="sub" id="porqueTexto"></p>
+      </div>
+      <div class="grid" id="gridPorque"></div>
+    </div>
+  </section>
+
+  <section id="ninos">
+    <div class="wrap">
+      <div class="kids rv">
+        <div>
+          <span class="eyebrow">Para los más pequeños</span>
+          <h2 id="kidsTitulo"></h2>
+          <p id="kidsTexto"></p>
+          <a class="btn" id="btnKids" target="_blank" rel="noopener"></a>
+        </div>
+        <ul id="kidsPuntos"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="prueba" id="prueba">
+    <div class="wrap">
+      <div class="center rv">
+        <span class="eyebrow">Prueba de nivel</span>
+        <h2 id="pruebaTitulo"></h2>
+        <p class="sub" id="pruebaTexto"></p>
+      </div>
+      <div class="quiz rv" id="quiz">
+        <div id="qInicio">
+          <form id="qForm" class="qform" novalidate autocomplete="off">
+            <div><label for="qNombre">Tu nombre</label><input id="qNombre" placeholder="Ej. María"></div>
+            <div><label for="qTel">Tu número de teléfono (WhatsApp)</label><input id="qTel" type="tel" inputmode="tel" placeholder="Ej. 5555 5555"></div>
+            <div><label id="qIdLabel">¿Qué idioma quieres evaluar?</label><div class="chips-idioma" id="qIdiomas" role="radiogroup" aria-labelledby="qIdLabel"></div></div>
+            <p class="qerror" id="qError" role="alert" hidden></p>
+            <button class="btn" type="submit">Comenzar la prueba</button>
+            <p class="nota" id="qNota"></p>
+          </form>
+        </div>
+        <div id="qPregunta" hidden>
+          <div class="qhead"><span id="qCount" aria-live="polite"></span></div>
+          <div class="qbar"><i id="qBar"></i></div>
+          <p class="qtexto" id="qTexto"></p>
+          <div class="qops" id="qOps"></div>
+          <div class="qnav">
+            <button type="button" class="btn sec sm" id="qPrev">Anterior</button>
+            <button type="button" class="btn sm" id="qNext" disabled>Siguiente</button>
+          </div>
+        </div>
+        <div id="qResultado" class="res" hidden>
+          <span class="eyebrow" id="resIdioma"></span>
+          <div class="res-badge" id="resBadge"></div>
+          <h3 id="resNom"></h3>
+          <p class="desc" id="resDesc"></p>
+          <p class="nota" id="resTotal"></p>
+          <div class="desglose" id="resDesglose"></div>
+          <div class="res-acc">
+            <a class="btn wa" id="resWa" target="_blank" rel="noopener"></a>
+            <button type="button" class="btn sec" id="resOtra">Hacer otra prueba</button>
+          </div>
+          <p class="nota" style="margin-top:18px">Es un resultado orientativo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pasos" style="padding-top:0">
+    <div class="wrap">
+      <div class="center rv">
+        <span class="eyebrow">Cómo funciona</span>
+        <h2 id="pasosTitulo"></h2>
+      </div>
+      <div class="grid pasos" id="gridPasos" style="margin-top:28px"></div>
+    </div>
+  </section>
+
+  <section class="testi" id="testimonios" style="background:var(--tint)">
+    <div class="wrap">
+      <div class="center rv">
+        <span class="eyebrow">Opiniones</span>
+        <h2>Lo que dicen nuestros alumnos</h2>
+      </div>
+      <div class="grid" id="gridTesti" style="margin-top:28px"></div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="center rv">
+        <span class="eyebrow">Dudas</span>
+        <h2 id="faqTitulo"></h2>
+      </div>
+      <div class="faq rv" id="faqLista" style="margin-top:28px"></div>
+    </div>
+  </section>
+
+  <section class="contacto" id="contacto">
+    <div class="wrap contacto-grid">
+      <div class="rv">
+        <span class="eyebrow">Contacto</span>
+        <h2 id="contactoTitulo"></h2>
+        <p class="sub" id="contactoTexto"></p>
+        <div class="dato"><b>WhatsApp</b><a id="cTel" target="_blank" rel="noopener"></a></div>
+        <div class="dato"><b>Modalidad</b><span id="cMod"></span></div>
+        <div class="dato" id="cCorreoBox"><b>Correo</b><a id="cCorreo"></a></div>
+        <div class="dato" id="cRedes"></div>
+      </div>
+      <form id="form" class="rv" autocomplete="off">
+        <div><label for="fNombre">Tu nombre</label><input id="fNombre" name="nombre" required placeholder="Ej. María"></div>
+        <div><label for="fIdioma">¿Qué te interesa?</label><select id="fIdioma"></select></div>
+        <div><label for="fNivel">Tu nivel</label>
+          <select id="fNivel">
+            <option>Empiezo desde cero (A1)</option>
+            <option>Ya sé lo básico (A2)</option>
+            <option>Nivel intermedio (B1)</option>
+            <option>No sé mi nivel</option>
+          </select>
+        </div>
+        <button class="btn wa" type="submit">Enviar por WhatsApp</button>
+        <p class="nota">Se abrirá tu WhatsApp con el mensaje listo. No guardamos tus datos en esta página.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fl">
+      <div class="logo-chip"><img id="logoFoot" alt=""></div>
+      <div>Escríbenos: <a id="fTel" target="_blank" rel="noopener"></a></div>
+    </div>
+    <div class="copy">© <span id="anio"></span> <span id="pie"></span>. Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<a class="waf" id="waFlotante" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3C9 3 3.3 8.6 3.3 15.5c0 2.4.7 4.7 1.9 6.6L3 29l7.1-2.1c1.8 1 3.8 1.5 5.9 1.5 7 0 12.7-5.600 12.7-12.500S23 3 16 3zm0 22.9c-1.9 0-3.700-.5-5.300-1.500l-.4-.2-4.200 1.200 1.300-4-.3-.4a10.200 10.200 0 0 1-1.600-5.500C5.500 9.900 10.200 5.300 16 5.300s10.500 4.600 10.500 10.200S21.800 25.900 16 25.900zm5.700-7.600c-.3-.2-1.800-.9-2.100-1-.3-.1-.5-.2-.7.200-.2.300-.8 1-1 1.200-.2.200-.4.200-.7.100-.3-.2-1.300-.5-2.500-1.500-.9-.8-1.500-1.800-1.700-2.100-.2-.3 0-.5.100-.7l.5-.5c.2-.2.200-.3.300-.5.100-.2.100-.4 0-.5-.1-.2-.7-1.600-.9-2.200-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.100-.8.400-.3.300-1.100 1.100-1.100 2.600s1.100 3 1.300 3.200c.2.200 2.200 3.300 5.300 4.600.7.300 1.300.5 1.700.6.700.2 1.400.2 1.900.1.600-.1 1.800-.7 2-1.400.3-.7.300-1.300.2-1.400-.1-.1-.3-.2-.6-.4z"/></svg>
+</a>
+
+<script type="application/ld+json" id="ld"></script>
+
+<script>
+(function(){
+  const N = NEGOCIO, $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  // Fondos ilustrados (siluetas). Se eligen con la clave fondo de cada idioma en NEGOCIO. Si falta, la tarjeta queda sin fondo.
+  const FONDOS = {
+    bigben: `<svg viewBox="0 0 200 200" preserveAspectRatio="xMaxYMax meet" aria-hidden="true" focusable="false"><g fill="currentColor"><polygon points="100,2 111,38 89,38"/><rect x="84" y="38" width="32" height="22"/><polygon points="64,62 70,44 76,62"/><polygon points="124,62 130,44 136,62"/><rect x="68" y="60" width="64" height="48"/><rect x="76" y="108" width="48" height="80"/><rect x="66" y="186" width="68" height="14"/></g><g fill="#fff"><circle cx="100" cy="84" r="16"/><rect x="90" y="42" width="4" height="14"/><rect x="106" y="42" width="4" height="14"/><rect x="95" y="122" width="10" height="16"/><rect x="95" y="148" width="10" height="16"/></g><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="100" y1="84" x2="100" y2="73"/><line x1="100" y1="84" x2="108" y2="88"/></g></svg>`,
+    coliseo: `<svg viewBox="0 0 200 200" preserveAspectRatio="xMaxYMax meet" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M6,200V90Q6,74 22,72H148L172,92L194,96V200Z"/></g><g fill="#fff"><rect x="22" y="80" width="8" height="10"/><rect x="44" y="80" width="8" height="10"/><rect x="66" y="80" width="8" height="10"/><rect x="88" y="80" width="8" height="10"/><rect x="110" y="80" width="8" height="10"/><rect x="132" y="80" width="8" height="10"/><path d="M20,126V111a7,7 0 0 1 14,0V126Z"/><path d="M46,126V111a7,7 0 0 1 14,0V126Z"/><path d="M72,126V111a7,7 0 0 1 14,0V126Z"/><path d="M98,126V111a7,7 0 0 1 14,0V126Z"/><path d="M124,126V111a7,7 0 0 1 14,0V126Z"/><path d="M150,126V111a7,7 0 0 1 14,0V126Z"/><path d="M20,158V143a7,7 0 0 1 14,0V158Z"/><path d="M46,158V143a7,7 0 0 1 14,0V158Z"/><path d="M72,158V143a7,7 0 0 1 14,0V158Z"/><path d="M98,158V143a7,7 0 0 1 14,0V158Z"/><path d="M124,158V143a7,7 0 0 1 14,0V158Z"/><path d="M150,158V143a7,7 0 0 1 14,0V158Z"/><path d="M20,194V175a7,7 0 0 1 14,0V194Z"/><path d="M46,194V175a7,7 0 0 1 14,0V194Z"/><path d="M72,194V175a7,7 0 0 1 14,0V194Z"/><path d="M98,194V175a7,7 0 0 1 14,0V194Z"/><path d="M124,194V175a7,7 0 0 1 14,0V194Z"/><path d="M150,194V175a7,7 0 0 1 14,0V194Z"/></g></svg>`,
+    brandeburgo: `<svg viewBox="0 0 200 200" preserveAspectRatio="xMaxYMax meet" aria-hidden="true" focusable="false"><g fill="currentColor"><rect x="21" y="100" width="14" height="86"/><rect x="50" y="100" width="14" height="86"/><rect x="79" y="100" width="14" height="86"/><rect x="107" y="100" width="14" height="86"/><rect x="136" y="100" width="14" height="86"/><rect x="165" y="100" width="14" height="86"/><rect x="12" y="82" width="176" height="18"/><rect x="34" y="64" width="132" height="18"/><rect x="8" y="186" width="184" height="14"/><rect x="78" y="56" width="44" height="8"/><rect x="84" y="44" width="32" height="12"/><rect x="84" y="30" width="6" height="14" rx="2"/><rect x="92.5" y="30" width="6" height="14" rx="2"/><rect x="101" y="30" width="6" height="14" rx="2"/><rect x="109.5" y="30" width="6" height="14" rx="2"/><polygon points="93,30 100,8 107,30"/><polygon points="84,22 100,12 116,22 100,18"/></g></svg>`,
+    sagrada: `<svg viewBox="0 0 200 200" preserveAspectRatio="xMaxYMax meet" aria-hidden="true" focusable="false"><g fill="currentColor"><rect x="22" y="118" width="156" height="82"/><path d="M30,150L33,80Q33,58 38,50Q43,58 43,80L46,150Z"/><circle cx="38" cy="48" r="3"/><path d="M60,150L63,64Q63,42 68,34Q73,42 73,64L76,150Z"/><circle cx="68" cy="32" r="3"/><path d="M124,150L127,64Q127,42 132,34Q137,42 137,64L140,150Z"/><circle cx="132" cy="32" r="3"/><path d="M154,150L157,80Q157,58 162,50Q167,58 167,80L170,150Z"/><circle cx="162" cy="48" r="3"/><path d="M92,150L95,50Q95,28 100,20Q105,28 105,50L108,150Z"/><circle cx="100" cy="18" r="3"/><rect x="98.6" y="2" width="2.8" height="14"/><rect x="95" y="6" width="10" height="2.6"/></g><g fill="#fff"><path d="M86,200V172Q100,148 114,172V200Z"/><rect x="36.4" y="96" width="3.2" height="12" rx="1.6"/><rect x="66.4" y="80" width="3.2" height="12" rx="1.6"/><rect x="130.4" y="80" width="3.2" height="12" rx="1.6"/><rect x="160.4" y="96" width="3.2" height="12" rx="1.6"/><rect x="98.4" y="66" width="3.2" height="12" rx="1.6"/><rect x="34" y="128" width="7" height="16" rx="3.5"/><rect x="52" y="128" width="7" height="16" rx="3.5"/><rect x="70" y="128" width="7" height="16" rx="3.5"/><rect x="123" y="128" width="7" height="16" rx="3.5"/><rect x="141" y="128" width="7" height="16" rx="3.5"/><rect x="159" y="128" width="7" height="16" rx="3.5"/></g></svg>`
+  };
+  const fondoHTML = i => i.foto
+    ? `<div class="foto" aria-hidden="true" style="background-image:url('${esc(i.foto)}');background-position:${esc(i.fotoPos || "center")};--fsize:${esc(i.fotoSize || "cover")}"></div><div class="shade" aria-hidden="true"></div>`
+    : (FONDOS[i.fondo] ? `<div class="bg" aria-hidden="true">${FONDOS[i.fondo]}</div>` : "");
+  const waLink = msg => "https://wa.me/" + N.whatsapp + "?text=" + encodeURIComponent(msg);
+  const WAICON = '<svg viewBox="0 0 32 32"><path d="M16 3C9 3 3.3 8.6 3.3 15.5c0 2.4.7 4.7 1.9 6.6L3 29l7.1-2.1c1.8 1 3.8 1.5 5.9 1.5 7 0 12.7-5.600 12.700-12.500S23 3 16 3zm5.700 15.300c-.3-.2-1.800-.9-2.100-1-.3-.1-.5-.2-.7.200-.2.300-.8 1-1 1.200-.2.200-.4.200-.7.100-.3-.2-1.300-.5-2.500-1.500-.9-.8-1.500-1.800-1.700-2.100-.2-.3 0-.5.100-.7l.5-.5c.2-.2.200-.3.300-.5.100-.2.100-.4 0-.5-.1-.2-.7-1.600-.9-2.200-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.100-.8.400-.3.300-1.100 1.100-1.100 2.600s1.100 3 1.300 3.200c.2.200 2.200 3.300 5.300 4.600.7.300 1.300.5 1.700.6.700.2 1.400.2 1.900.1.600-.1 1.800-.7 2-1.400.3-.7.300-1.300.2-1.400-.1-.1-.3-.2-.6-.4z"/></svg>';
+
+  // Metadatos
+  document.title = N.nombre + " | Academia de idiomas en línea";
+  document.querySelector('meta[name=description]').content = N.metaDescripcion;
+  document.querySelector('meta[property="og:title"]').content = document.title;
+  document.querySelector('meta[property="og:description"]').content = N.metaDescripcion;
+
+  // Logos (con texto de respaldo si falta el archivo)
+  ["logoNav","logoHero","logoFoot"].forEach(id => {
+    const img = $(id); img.src = N.logo; img.alt = "Logo de " + N.nombre;
+    img.onerror = () => { img.style.display = "none"; if (id === "logoNav") $("logoTxt").style.display = "block"; };
+  });
+  $("logoTxt").textContent = N.nombre;
+
+  // WhatsApp
+  const wa = waLink(N.mensajeWhatsapp);
+  ["btnNav","waFlotante"].forEach(id => $(id).href = wa);
+  $("btnHero").href = wa; $("btnHero").innerHTML = WAICON + "Escríbenos por WhatsApp";
+  $("cTel").href = wa; $("cTel").textContent = N.telefonoVisible;
+  $("fTel").href = wa; $("fTel").textContent = N.telefonoVisible;
+
+  // Hero
+  $("heroEyebrow").textContent = "Academia de idiomas en línea";
+  $("heroTitulo").innerHTML = N.titularInicio;
+  $("heroTexto").textContent = N.descripcionCorta;
+  $("chips").innerHTML = N.chips.map(c => `<span class="chip"><i style="background:${esc(c.color)}"></i>${esc(c.texto)}</span>`).join("");
+
+  // Idiomas
+  $("idiomasTitulo").textContent = N.idiomasTitulo;
+  $("idiomasTexto").textContent = N.idiomasTexto;
+  $("gridIdiomas").innerHTML = N.idiomas.map(i => {
+    const msg = i.mensaje || ("Hola, quiero información del curso de " + i.nombre + ".");
+    return `<article class="card lang rv${i.foto ? ' has-foto' : ''}${i.ancho ? ' wide' : ''}" style="--c:${esc(i.color)};--t:${esc(i.textoColor||'#fff')};--alto:${esc(i.alto||'320px')}">
+      ${fondoHTML(i)}
+      <div class="badge">${esc(i.sigla)}</div>
+      <h3>${esc(i.nombre)}</h3>
+      <span class="nivel">${esc(i.niveles)}</span>
+      <p>${esc(i.texto)}</p>
+      <a class="link" href="${waLink(msg)}" target="_blank" rel="noopener">Consultar <span>→</span></a>
+    </article>`;
+  }).join("");
+
+  // Por qué VIVA
+  $("porqueTitulo").textContent = N.porqueTitulo;
+  $("porqueTexto").textContent = N.porqueTexto;
+  $("gridPorque").innerHTML = N.porque.map(f =>
+    `<div class="feat rv"><div class="ic">${esc(f.icono)}</div><div><h3>${esc(f.titulo)}</h3><p>${esc(f.texto)}</p></div></div>`).join("");
+
+  // Niños
+  if (N.ninos && N.ninos.mostrar) {
+    $("kidsTitulo").textContent = N.ninos.titulo;
+    $("kidsTexto").textContent = N.ninos.texto;
+    $("kidsPuntos").innerHTML = N.ninos.puntos.map(p => `<li>${esc(p.t)}<small>${esc(p.s)}</small></li>`).join("");
+    $("btnKids").textContent = N.ninos.boton;
+    $("btnKids").href = waLink(N.ninos.mensaje);
+  } else { $("ninos").remove(); $("navNinos").remove(); }
+
+  // Pasos
+  $("pasosTitulo").textContent = N.pasosTitulo;
+  $("gridPasos").innerHTML = N.pasos.map(p =>
+    `<div class="paso rv" style="--c:${esc(p.color)}"><h3>${esc(p.titulo)}</h3><p>${esc(p.texto)}</p></div>`).join("");
+
+  // Testimonios
+  if (N.testimonios && N.testimonios.length) {
+    $("gridTesti").innerHTML = N.testimonios.map(t =>
+      `<div class="card rv"><div class="estrellas">★★★★★</div><p>“${esc(t.texto)}”</p><div class="quien">${esc(t.autor)}</div></div>`).join("");
+  } else { $("testimonios").remove(); }
+
+  // FAQ
+  $("faqTitulo").textContent = N.faqTitulo;
+  $("faqLista").innerHTML = N.faq.map(f => `<details><summary>${esc(f.p)}</summary><p>${esc(f.r)}</p></details>`).join("");
+
+  // Contacto
+  $("contactoTitulo").textContent = N.contactoTitulo;
+  $("contactoTexto").textContent = N.contactoTexto;
+  $("cMod").textContent = N.modalidad;
+  if (N.correo) { $("cCorreo").textContent = N.correo; $("cCorreo").href = "mailto:" + N.correo; } else $("cCorreoBox").remove();
+  const redes = [];
+  if (N.facebook)  redes.push(`<a href="${esc(N.facebook)}" target="_blank" rel="noopener">Facebook</a>`);
+  if (N.instagram) redes.push(`<a href="${esc(N.instagram)}" target="_blank" rel="noopener">Instagram</a>`);
+  if (N.tiktok)    redes.push(`<a href="${esc(N.tiktok)}" target="_blank" rel="noopener">TikTok</a>`);
+  if (redes.length) $("cRedes").innerHTML = "<b>Redes</b>" + redes.join(" · "); else $("cRedes").remove();
+
+  // Formulario -> WhatsApp con mensaje armado
+  const opciones = N.idiomas.map(i => i.nombre);
+  if (N.ninos && N.ninos.mostrar) opciones.push("Curso de vacaciones para niños");
+  opciones.push("Aún no decido");
+  $("fIdioma").innerHTML = opciones.map(o => `<option>${esc(o)}</option>`).join("");
+  $("form").addEventListener("submit", e => {
+    e.preventDefault();
+    const nombre = $("fNombre").value.trim(), idioma = $("fIdioma").value, nivel = $("fNivel").value;
+    const msg = `Hola, soy ${nombre}. Me interesa: ${idioma}. Mi nivel: ${nivel}. ¿Me pueden dar información?`;
+    window.open(waLink(msg), "_blank", "noopener");
+  });
+
+  // Prueba de nivel
+  const P = N.prueba;
+  if (P && P.activa && P.idiomas && P.idiomas.length) {
+    const NIVELES = ["A1", "A2", "B1"];
+    const RES = [
+      { b: "Pre-A1", nom: "Inicial",      d: "Estás empezando: te recomendamos comenzar desde el nivel A1." },
+      { b: "A1",     nom: "Principiante", d: "Manejas lo básico. Es un buen punto de partida para consolidar A1 y avanzar hacia A2." },
+      { b: "A2",     nom: "Básico",       d: "Te comunicas en situaciones simples y cotidianas. Estás listo para trabajar el nivel A2 y acercarte a B1." },
+      { b: "B1",     nom: "Intermedio",   d: "Tienes buenas bases: estás en nivel B1 o por encima." }
+    ];
+    const secs = { inicio: $("qInicio"), pregunta: $("qPregunta"), resultado: $("qResultado") };
+    const mostrar = k => {
+      Object.keys(secs).forEach(x => { secs[x].hidden = (x !== k); });
+      $("quiz").scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+    const fallo = m => { $("qError").textContent = m; $("qError").hidden = false; };
+    let st = null;
+
+    $("pruebaTitulo").textContent = P.titulo;
+    $("pruebaTexto").textContent = P.texto;
+    $("qNota").textContent = P.nota || "";
+    $("qIdiomas").innerHTML = P.idiomas.map((l, i) =>
+      `<label style="--c:${esc(l.color)}"><input type="radio" name="qidioma" value="${i}"><span><i></i>${esc(l.nombre)}</span></label>`).join("");
+    $("resWa").innerHTML = WAICON + "Enviar mi resultado por WhatsApp";
+
+    $("qForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const nombre = $("qNombre").value.trim(), tel = $("qTel").value.trim();
+      const sel = document.querySelector('input[name="qidioma"]:checked');
+      if (!nombre) return fallo("Escribe tu nombre para continuar.");
+      if (tel.replace(/\D/g, "").length < 8) return fallo("Escribe un número de teléfono válido, el que usas en WhatsApp.");
+      if (!sel) return fallo("Elige el idioma de tu prueba.");
+      $("qError").hidden = true;
+      const L = P.idiomas[+sel.value];
+      const items = L.preguntas.map(p => {
+        const ord = shuffle(p.o.map((_, k) => k));
+        return { n: p.n, q: p.q, o: ord.map(k => p.o[k]), c: ord.indexOf(0) };
+      });
+      st = { L, items, resp: new Array(items.length).fill(null), i: 0, nombre, tel };
+      pintar();
+      mostrar("pregunta");
+    });
+
+    function pintar() {
+      const it = st.items[st.i], total = st.items.length;
+      $("qCount").textContent = st.L.nombre + " · Pregunta " + (st.i + 1) + " de " + total;
+      $("qBar").style.width = ((st.i + 1) / total * 100) + "%";
+      $("qTexto").textContent = it.q;
+      $("qOps").innerHTML = it.o.map((t, k) =>
+        `<button type="button" class="qop" data-k="${k}" aria-pressed="${st.resp[st.i] === k}"><b>${"ABCD"[k]}</b><span>${esc(t)}</span></button>`).join("");
+      $("qPrev").disabled = st.i === 0;
+      $("qNext").disabled = st.resp[st.i] == null;
+      $("qNext").textContent = st.i === total - 1 ? "Ver mi resultado" : "Siguiente";
+    }
+
+    $("qOps").addEventListener("click", e => {
+      const b = e.target.closest(".qop");
+      if (!b || !st) return;
+      st.resp[st.i] = +b.dataset.k;
+      $("qOps").querySelectorAll(".qop").forEach(x => x.setAttribute("aria-pressed", x === b));
+      $("qNext").disabled = false;
+    });
+    $("qPrev").addEventListener("click", () => { if (st && st.i > 0) { st.i--; pintar(); } });
+    $("qNext").addEventListener("click", () => {
+      if (!st || st.resp[st.i] == null) return;
+      if (st.i < st.items.length - 1) { st.i++; pintar(); } else resultado();
+    });
+
+    function resultado() {
+      const stats = {}; NIVELES.forEach(n => { stats[n] = { ok: 0, t: 0 }; });
+      st.items.forEach((it, k) => { const s = stats[it.n]; if (!s) return; s.t++; if (st.resp[k] === it.c) s.ok++; });
+      let pasados = 0;
+      for (const n of NIVELES) {
+        const s = stats[n];
+        if (s.t && s.ok >= Math.ceil(s.t * (P.umbral || 0.6))) pasados++; else break;
+      }
+      const R = RES[pasados], total = st.items.length;
+      const ok = st.items.reduce((a, it, k) => a + (st.resp[k] === it.c ? 1 : 0), 0);
+      $("qResultado").style.setProperty("--c", st.L.color);
+      $("resBadge").textContent = R.b;
+      $("resBadge").style.color = st.L.tc || "#fff";
+      $("resBadge").classList.toggle("larga", R.b.length > 3);
+      $("resIdioma").textContent = "Tu nivel de " + st.L.nombre;
+      $("resNom").textContent = R.nom;
+      $("resDesc").textContent = R.d;
+      $("resTotal").textContent = ok + " de " + total + " respuestas correctas";
+      $("resDesglose").innerHTML = NIVELES.map(n => {
+        const s = stats[n], pct = s.t ? Math.round(s.ok / s.t * 100) : 0;
+        return `<div><span>${n}</span><span class="b"><i style="width:${pct}%"></i></span><span>${s.ok}/${s.t}</span></div>`;
+      }).join("");
+      const detalle = NIVELES.map(n => n + " " + stats[n].ok + "/" + stats[n].t).join(" · ");
+      const msg = "Hola, soy " + st.nombre + ". Hice la prueba de nivel de " + st.L.nombre + " en la web de " + N.nombre + ".\n" +
+                  "Resultado: " + R.b + " (" + R.nom + "), " + ok + "/" + total + " aciertos.\n" +
+                  "Por nivel: " + detalle + ".\n" +
+                  "Mi teléfono: " + st.tel + ".\n" +
+                  "Quiero información de los cursos.";
+      $("resWa").href = waLink(msg);
+      mostrar("resultado");
+    }
+
+    $("resOtra").addEventListener("click", () => {
+      st = null;
+      document.querySelectorAll('input[name="qidioma"]').forEach(r => { r.checked = false; });
+      mostrar("inicio");
+    });
+  } else { $("prueba").remove(); $("navPrueba").remove(); }
+
+  // Pie y datos estructurados
+  $("anio").textContent = new Date().getFullYear();
+  $("pie").textContent = N.nombre;
+  $("ld").textContent = JSON.stringify({
+    "@context": "https://schema.org", "@type": "EducationalOrganization",
+    name: N.nombre, description: N.metaDescripcion, telephone: "+" + N.whatsapp,
+    areaServed: "GT", knowsLanguage: "es"
+  });
+
+  // Menú móvil
+  const burger = $("burger"), menu = $("menu");
+  const cerrar = () => { menu.classList.remove("open"); burger.classList.remove("open"); burger.setAttribute("aria-expanded","false"); };
+  burger.addEventListener("click", () => {
+    const abierto = menu.classList.toggle("open");
+    burger.classList.toggle("open", abierto); burger.setAttribute("aria-expanded", abierto);
+  });
+  menu.querySelectorAll("a").forEach(a => a.addEventListener("click", cerrar));
+
+  // Aparición al hacer scroll
+  const items = document.querySelectorAll(".rv");
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } }), { threshold: .12 });
+    items.forEach((el, i) => { el.style.transitionDelay = (i % 4) * 70 + "ms"; io.observe(el); });
+  } else items.forEach(el => el.classList.add("in"));
+})();
+</script>
+</body>
+</html>
